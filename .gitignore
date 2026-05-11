@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+*.local
+
+# Vite
+.vite/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment (keep .env.example tracked if you add one)
+.env
+.env.*
+!.env.example
+
+# TypeScript / vue-tsc
+*.tsbuildinfo
+
+# Test coverage
+coverage/
+
+# ESLint cache
+.eslintcache
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
