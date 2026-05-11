@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Files - EXAM PREP AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-low": "#eff4fa",
+                      "surface-container-highest": "#dee3e8",
+                      "tertiary-container": "#a2a3a3",
+                      "tertiary": "#5d5f5f",
+                      "surface-bright": "#f5faff",
+                      "surface-dim": "#d6dae0",
+                      "on-tertiary-container": "#37393a",
+                      "on-surface": "#171c20",
+                      "secondary-fixed": "#e2e2e2",
+                      "on-surface-variant": "#3e4850",
+                      "on-secondary-fixed": "#1b1b1b",
+                      "on-primary-container": "#003e58",
+                      "error-container": "#ffdad6",
+                      "surface": "#f5faff",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed": "#c6e7ff",
+                      "on-primary": "#ffffff",
+                      "secondary-container": "#e2e2e2",
+                      "surface-tint": "#00658d",
+                      "on-secondary-fixed-variant": "#474747",
+                      "background": "#f5faff",
+                      "tertiary-fixed": "#e2e2e2",
+                      "secondary-fixed-dim": "#c6c6c6",
+                      "surface-container-lowest": "#ffffff",
+                      "primary-container": "#00aeef",
+                      "on-tertiary-fixed": "#1a1c1c",
+                      "on-background": "#171c20",
+                      "on-tertiary-fixed-variant": "#454747",
+                      "on-primary-fixed-variant": "#004c6b",
+                      "on-primary-fixed": "#001e2d",
+                      "secondary": "#5e5e5e",
+                      "inverse-primary": "#82cfff",
+                      "inverse-on-surface": "#ecf1f7",
+                      "surface-variant": "#dee3e8",
+                      "outline": "#6e7881",
+                      "on-error": "#ffffff",
+                      "inverse-surface": "#2c3135",
+                      "on-error-container": "#93000a",
+                      "primary": "#00658d",
+                      "error": "#ba1a1a",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-container": "#646464",
+                      "surface-container-high": "#e4e9ee",
+                      "surface-container": "#eaeef4",
+                      "outline-variant": "#bdc8d1",
+                      "tertiary-fixed-dim": "#c6c6c7",
+                      "primary-fixed-dim": "#82cfff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "48px",
+                      "grid-columns": "12",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "64px",
+                      "sm": "8px",
+                      "lg": "24px",
+                      "md": "16px",
+                      "gutter": "24px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "h2": ["Manrope"],
+                      "button": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "h1": ["Manrope"],
+                      "h3": ["Manrope"]
+              },
+              "fontSize": {
+                      "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "button": ["15px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                      "label-sm": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "h3": ["24px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-surface-container-high border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-md max-w-7xl mx-auto">
+<div class="font-h3 text-h3 font-bold text-primary dark:text-primary-container">
+                EXAM PREP AI
+            </div>
+<div class="hidden md:flex items-center gap-lg font-body-md text-body-md">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-container transition-colors duration-200" href="#">Features</a>
+<a class="text-primary dark:text-primary-container font-bold border-b-2 border-primary hover:text-primary dark:hover:text-primary-container transition-colors duration-200" href="#">Library</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-container transition-colors duration-200" href="#">Resources</a>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors p-xs" data-icon="dark_mode">dark_mode</button>
+<div class="hidden sm:flex items-center gap-sm">
+<button class="font-button text-button px-md py-sm rounded-lg text-primary hover:bg-surface-container-low active:scale-95 transition-all">Plans</button>
+<button class="font-button text-button px-md py-sm rounded-lg bg-primary-container text-on-primary-container active:scale-95 transition-all">Login</button>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-md mb-xl">
+<div>
+<h1 class="font-h1 text-h1 text-on-surface">My Files</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Manage your study materials and uploaded PDF documents.</p>
+</div>
+<button class="flex items-center justify-center gap-sm bg-primary-container text-on-primary-container font-button text-button px-lg py-md rounded-xl hover:brightness-110 active:scale-95 transition-all shadow-sm">
+<span class="material-symbols-outlined" data-icon="upload">upload</span>
+                Upload New
+            </button>
+</div>
+<!-- Dashboard Layout: Sidebar & Content -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Sidebar / Quick Actions -->
+<div class="col-span-12 lg:col-span-3 space-y-lg">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-md">Storage</h3>
+<div class="space-y-sm">
+<div class="flex justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant">72% Used</span>
+<span class="text-primary font-bold">144 MB / 200 MB</span>
+</div>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 72%"></div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-md">Categories</h3>
+<nav class="space-y-xs">
+<a class="flex items-center gap-sm p-sm rounded-lg bg-surface-container-low text-primary font-bold" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="description">description</span>
+<span class="font-body-md text-body-md">All Files</span>
+</a>
+<a class="flex items-center gap-sm p-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="star">star</span>
+<span class="font-body-md text-body-md">Starred</span>
+</a>
+<a class="flex items-center gap-sm p-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="schedule">schedule</span>
+<span class="font-body-md text-body-md">Recent</span>
+</a>
+<a class="flex items-center gap-sm p-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+<span class="font-body-md text-body-md">Trash</span>
+</a>
+</nav>
+</div>
+</div>
+<!-- File Grid -->
+<div class="col-span-12 lg:col-span-9">
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-lg">
+<!-- File Card 1 -->
+<div class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-md hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+<div class="aspect-[4/3] bg-surface-container-low rounded-lg mb-md flex items-center justify-center border border-outline-variant/30 overflow-hidden relative">
+<img class="w-full h-full object-cover opacity-80" data-alt="A macro shot of a clean, white paper texture with crisp black typography, representing a professional PDF document. The lighting is soft and even, characteristic of a high-end corporate minimalist aesthetic. Cool blue accents from the Exam Prep AI palette are subtly integrated through thin decorative lines in the corner." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNbUOw_AYBaH03zdCVppjfyOWkQjfunpdMgn1Ywgguu0GVWZCZRSYy2WNjWzxOXzvHqQxZYoGb7zapgCCsFmyXDOZspFN9ffEPRlOGlj4YEL4zg7ogJwmO1SoPrEX6YDBd9twzM8nq6hFiPHUAfrI89k3T-vuqtr6JHsgAZYGd4uR8NH0D3kx_ej6BKFfi21ufdQzUL98j9CaC-VocrRdW-4h7rrANOEvn_zn8OJt38qYeFDa1BZ_V9kv4AwFyvCSvYHqkSGoXqnE"/>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-h1" data-icon="visibility">visibility</span>
+</div>
+</div>
+<div class="flex items-start justify-between">
+<div class="flex-grow min-w-0">
+<h4 class="font-body-md text-body-md font-bold text-on-surface truncate">Advanced Macroeconomics - Chapter 4.pdf</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-xs">Uploaded 2 days ago • 4.2 MB</p>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-error transition-colors p-xs" data-icon="delete">delete</button>
+</div>
+</div>
+<!-- File Card 2 -->
+<div class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-md hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+<div class="aspect-[4/3] bg-surface-container-low rounded-lg mb-md flex items-center justify-center border border-outline-variant/30 overflow-hidden relative">
+<img class="w-full h-full object-cover opacity-80" data-alt="Detailed close-up of a digital tablet screen displaying complex statistical charts and data visualizations. The interface is clean, featuring light mode colors with primary blue highlights. The mood is intellectually focused and technologically advanced, fitting for a modern exam preparation platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFOr07-iH-jaTUSaxcLlqSSg2h9eyylMmyLg4pFNFzfohr_x7H5SSvFV5FRvyXLvUiQqJh-dNtWeZaTOBFzahWm0ejy6sdfQxaJm1o-yjub0L_i70DeDGojHgHSeInN77VwlBHSjAbzLeKpUys0r-YWiHAn5XF7BzqDjW6UB46Jc5ERxwc5fj437qgbrcTeok7r2rAVU0JjE11hl9EV5cP0wHAm6dsNsu6aUwFJG4UsVvzUOkkZ-pbh-sHHbbJ8N8YsHvInCtfb4c"/>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-h1" data-icon="visibility">visibility</span>
+</div>
+</div>
+<div class="flex items-start justify-between">
+<div class="flex-grow min-w-0">
+<h4 class="font-body-md text-body-md font-bold text-on-surface truncate">Statistics for Data Science - Midterm.pdf</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-xs">Uploaded 5 days ago • 12.8 MB</p>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-error transition-colors p-xs" data-icon="delete">delete</button>
+</div>
+</div>
+<!-- File Card 3 -->
+<div class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-md hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+<div class="aspect-[4/3] bg-surface-container-low rounded-lg mb-md flex items-center justify-center border border-outline-variant/30 overflow-hidden relative">
+<img class="w-full h-full object-cover opacity-80" data-alt="A minimalist architectural shot of a bright modern library with high ceilings and white geometric shelves. Soft natural light illuminates the space, creating a serene and professional atmosphere. The composition emphasizes clarity and intellectual pursuit, matching the Exam Prep AI corporate modern design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9rvZRZuIu0SBJussjBe0x6MjJXID6tmS3LgDWFXKI36yRc8YTnnAEe9Mj2yb0NaFuoi-6LJ3Fu5-BOH8HJzT0xWLPcwbf5mxR0kV8OI0aAxkmqDuGj3RNucT4s9ulz-9itUp1MQsoZQdDkjM5Jq9hJ4a9epb_Q9VrbDoorHcWAgc5p4LE-1NkJZ4Me_Mrqoo8oYGwqvyvfDNGFF4uNB0rewucQTxCc0bq4Q0N_YTUXSZAeNvfWjm8M6V9bBCU3wCTxscix33zK-k"/>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-h1" data-icon="visibility">visibility</span>
+</div>
+</div>
+<div class="flex items-start justify-between">
+<div class="flex-grow min-w-0">
+<h4 class="font-body-md text-body-md font-bold text-on-surface truncate">LSAT Practice Exam 2024.pdf</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-xs">Uploaded 1 week ago • 8.1 MB</p>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-error transition-colors p-xs" data-icon="delete">delete</button>
+</div>
+</div>
+<!-- File Card 4 (List Style Variant - Showing Design Versatility) -->
+<div class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-md hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+<div class="aspect-[4/3] bg-surface-container-low rounded-lg mb-md flex items-center justify-center border border-outline-variant/30 overflow-hidden relative">
+<img class="w-full h-full object-cover opacity-80" data-alt="Minimalist top-down view of a designer's workspace featuring a laptop, a sleek blue notebook, and a pair of professional glasses on a white surface. High-key lighting creates a clean and productive mood. The color palette is dominated by whites and light grays with vibrant #00AEEF blue accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwDEoyIbPEHglU2iDkr64WM4tEXItOMaODTIO3pbN-36LtWyAi4HCgiSC11T7RyKF5qtxcDbcR9j3WOyOEW1l5mK9Sgo94-AO5TCtmTT2g8UV6QgJNJZemTv8NUQONbe-BzUfz39h5gQtHI-75d3gXa5kRe6w8V2feeOgvOZcLmnsJymq_cy6p-gWiFmC8ZyREvxKIMlMtBrISpQsLP9BbMmk2RFP2xYs4qVFhM6VuXHvjptwxDQNFZfY0IC-rTy5HlXPBu3P7FMY"/>
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-h1" data-icon="visibility">visibility</span>
+</div>
+</div>
+<div class="flex items-start justify-between">
+<div class="flex-grow min-w-0">
+<h4 class="font-body-md text-body-md font-bold text-on-surface truncate">Civil Engineering Structural Analysis.pdf</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-xs">Uploaded 2 weeks ago • 15.2 MB</p>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-error transition-colors p-xs" data-icon="delete">delete</button>
+</div>
+</div>
+<!-- Empty State / Add Placeholder -->
+<div class="group bg-surface-container-low border-2 border-dashed border-outline-variant rounded-xl p-md flex flex-col items-center justify-center text-center cursor-pointer hover:border-primary transition-all duration-300 min-h-[300px]">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center mb-md group-hover:bg-primary-container/20 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors text-[32px]" data-icon="add">add</span>
+</div>
+<h4 class="font-body-md text-body-md font-bold text-on-surface">Add more files</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant max-w-[150px] mt-sm">Drag and drop or click to upload</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-inverse-surface border-t border-outline-variant dark:border-outline full-width bottom mt-xl">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-xl gap-gutter max-w-7xl mx-auto">
+<div class="flex flex-col items-center md:items-start gap-xs">
+<div class="font-h3 text-h3 font-bold text-primary dark:text-primary-container">
+                    EXAM PREP AI
+                </div>
+<p class="font-label-sm text-label-sm text-on-surface-variant dark:text-on-surface-variant opacity-80">© 2024 Exam Prep AI. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-lg font-label-sm text-label-sm">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-container underline transition-all opacity-80 hover:opacity-100" href="#">About</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-container underline transition-all opacity-80 hover:opacity-100" href="#">Contact</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-container underline transition-all opacity-80 hover:opacity-100" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-container underline transition-all opacity-80 hover:opacity-100" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</body></html>

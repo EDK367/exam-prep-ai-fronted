@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#c6e7ff",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#474747",
+                    "surface-bright": "#f5faff",
+                    "outline-variant": "#bdc8d1",
+                    "surface-variant": "#dee3e8",
+                    "surface-container": "#eaeef4",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "inverse-surface": "#2c3135",
+                    "surface": "#f5faff",
+                    "inverse-primary": "#82cfff",
+                    "error": "#ba1a1a",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "surface-dim": "#d6dae0",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container-highest": "#dee3e8",
+                    "on-error-container": "#93000a",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed": "#e2e2e2",
+                    "tertiary": "#5d5f5f",
+                    "on-background": "#171c20",
+                    "inverse-on-surface": "#ecf1f7",
+                    "on-primary-fixed-variant": "#004c6b",
+                    "primary-container": "#00aeef",
+                    "on-primary-fixed": "#001e2d",
+                    "surface-container-high": "#e4e9ee",
+                    "on-surface-variant": "#3e4850",
+                    "tertiary-container": "#a2a3a3",
+                    "background": "#f5faff",
+                    "on-tertiary-fixed-variant": "#454747",
+                    "surface-container-low": "#eff4fa",
+                    "secondary-fixed-dim": "#c6c6c6",
+                    "on-tertiary-container": "#37393a",
+                    "on-secondary-container": "#646464",
+                    "on-primary-container": "#003e58",
+                    "primary": "#00658d",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#e2e2e2",
+                    "secondary-container": "#e2e2e2",
+                    "secondary": "#5e5e5e",
+                    "primary-fixed-dim": "#82cfff",
+                    "on-secondary-fixed": "#1b1b1b",
+                    "surface-tint": "#00658d",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "on-surface": "#171c20",
+                    "outline": "#6e7881"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "grid-columns": "12",
+                    "md": "16px",
+                    "margin-desktop": "64px",
+                    "lg": "24px",
+                    "xl": "48px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "h2": ["Manrope"],
+                    "body-lg": ["Inter"],
+                    "h1": ["Manrope"],
+                    "button": ["Inter"],
+                    "body-md": ["Inter"],
+                    "h3": ["Manrope"]
+            },
+            "fontSize": {
+                    "label-sm": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "h2": ["32px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                    "h1": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "button": ["15px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                    "h3": ["24px", {"lineHeight": "1.4", "letterSpacing": "0", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .border-subtle { border: 1px solid #dee3e8; }
+        .dark .border-subtle { border: 1px solid #6e7881; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md transition-colors duration-300">
+<!-- Top Navigation Bar -->
+<header class="bg-surface dark:bg-surface-container-high border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none sticky top-0 z-50">
+<nav class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-md max-w-7xl mx-auto">
+<div class="font-h3 text-h3 font-bold text-primary dark:text-primary-container">EXAM PREP AI</div>
+<div class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant dark:text-on-surface-variant font-body-md text-body-md hover:text-primary dark:hover:text-primary-container transition-colors duration-200" href="#">Features</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-body-md text-body-md hover:text-primary dark:hover:text-primary-container transition-colors duration-200" href="#">Library</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-body-md text-body-md hover:text-primary dark:hover:text-primary-container transition-colors duration-200" href="#">Resources</a>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined p-sm rounded-full hover:bg-surface-container transition-colors" data-icon="dark_mode">dark_mode</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-primary">
+<img alt="Profile" data-alt="A professional headshot of a young male professional with a friendly smile, set against a clean, softly blurred office background. The lighting is bright and natural, reflecting a modern corporate atmosphere. The image is crisp and high-resolution, adhering to a minimalist and trustworthy tech-focused aesthetic with a balanced color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD932um--IhmykiQoqnWFGVLus4YEdscRmX20Ox2sFgBd6jEY0TYB0tiJBVKq38VshdBOilgADyQQhzGnIH0TTUEmRIxrrThoO5GWlWGslyQLvgYJggxgniaxx06wdhcavKRwBnI2s47yfp9ov9Kc6z_wV_B_spY7Fs-ZaKB4WGuCQ5JMa_5qmzCysjViAw5uLM6Of9G-_a4POkEbxch9La9ZBnzFpBEaSdeWpp-GwDdEBqV0ofDlwzMsIShJIX___gOulFUlIorj0"/>
+</div>
+</div>
+</nav>
+</header>
+<main class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl">
+<div class="mb-xl">
+<h1 class="font-h1 text-h1 text-on-surface mb-xs">Profile</h1>
+<p class="text-on-surface-variant font-body-md">Manage your account settings and subscription preferences.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-xl">
+<!-- Left Column: Profile Card -->
+<div class="md:col-span-4 space-y-lg">
+<div class="bg-surface-container-lowest dark:bg-inverse-surface border-subtle p-lg rounded-xl shadow-sm">
+<div class="flex flex-col items-center text-center">
+<div class="relative mb-md">
+<img alt="User Avatar" class="h-32 w-32 rounded-full border-4 border-primary-fixed shadow-md" data-alt="A detailed close-up of a professional male user's avatar in a circular frame. The lighting is studio-quality and even, emphasizing a friendly and approachable persona. The background is a soft, solid neutral tone that complements the high-tech, minimalist UI style. The image conveys expertise and modern professionalism within a digital learning environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDI5G_9lEcd4W3wZSKsE2qGPle464sSgr49vtwlBa8Dq30aCo22PYf9BeZYqf_s-WVS2jHzID_WgVMQh9u6o62XY8RF0UWCEfjZFU2Pfq1iZAOkDOIAh1fiZ-at7Ycku2Lpca9F71q1t0k2fx-7euJy7XXWa8vpAwAIVRWoHUWBeaU4YGIbaZPD-WqL6QcyxNTI09YLKp-Fe96i42PGmUO_IvrGT-XeaL8OtKTFeO2svM6pccHLTIyy9gAgcgHLq-_GmDvDOjlr7tE"/>
+<button class="absolute bottom-0 right-0 bg-primary text-white p-xs rounded-full border-2 border-white shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span>
+</button>
+</div>
+<h2 class="font-h2 text-h2 text-on-surface">Alex</h2>
+<p class="text-on-surface-variant font-body-md mb-lg">alex.student@examprep.ai</p>
+<div class="w-full pt-md border-t border-outline-variant">
+<div class="flex justify-between items-center py-sm">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Student ID</span>
+<span class="text-on-surface font-body-md">#EP-99421</span>
+</div>
+<div class="flex justify-between items-center py-sm">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Member Since</span>
+<span class="text-on-surface font-body-md">Jan 2024</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Danger Zone -->
+<div class="p-lg bg-error-container/10 border border-error/20 rounded-xl">
+<h3 class="font-label-sm text-label-sm text-error mb-sm uppercase tracking-wider">Danger Zone</h3>
+<button class="w-full py-md px-lg border border-error text-error rounded-lg font-button text-button hover:bg-error hover:text-white transition-all active:scale-95">
+                        Delete Account
+                    </button>
+</div>
+</div>
+<!-- Right Column: Subscription & Settings -->
+<div class="md:col-span-8 space-y-lg">
+<!-- Subscription Card -->
+<section class="bg-primary-container/10 border-2 border-primary-container p-xl rounded-xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-lg opacity-10">
+<span class="material-symbols-outlined text-[120px]" data-icon="verified">verified</span>
+</div>
+<div class="relative z-10">
+<div class="flex justify-between items-start mb-lg">
+<div>
+<span class="bg-primary-container text-on-primary-container px-md py-xs rounded-full font-label-sm text-label-sm mb-sm inline-block">CURRENT PLAN</span>
+<h3 class="font-h1 text-h1 text-primary">Pro Plan</h3>
+</div>
+<div class="text-right">
+<p class="text-primary font-h3 text-h3">$19.99<span class="text-on-surface-variant text-body-md">/mo</span></p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-lg mb-xl">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="calendar_today">calendar_today</span>
+<div>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Billing cycle</p>
+<p class="text-on-surface font-body-md font-semibold">Monthly</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary" data-icon="event_repeat">event_repeat</span>
+<div>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Next renewal</p>
+<p class="text-on-surface font-body-md font-semibold">Nov 24, 2024</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-md">
+<button class="bg-[#00AEEF] text-white px-xl py-md rounded-lg font-button text-button hover:brightness-110 shadow-md transition-all active:scale-95 flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined" data-icon="rocket_launch">rocket_launch</span>
+                                Upgrade Plan
+                            </button>
+<button class="bg-surface dark:bg-surface-container-high border-subtle text-on-surface-variant px-xl py-md rounded-lg font-button text-button hover:bg-surface-container transition-all active:scale-95">
+                                Manage Billing
+                            </button>
+</div>
+</div>
+</section>
+<!-- Account Settings -->
+<section class="bg-surface-container-lowest dark:bg-inverse-surface border-subtle rounded-xl shadow-sm overflow-hidden">
+<div class="px-lg py-md border-b border-outline-variant">
+<h3 class="font-h3 text-h3 text-on-surface">Account Settings</h3>
+</div>
+<div class="divide-y divide-outline-variant">
+<!-- Email Notifications -->
+<div class="flex items-center justify-between p-lg hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-lg">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="mail">mail</span>
+<div>
+<p class="text-on-surface font-body-md font-semibold">Email Notifications</p>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Receive weekly study summaries and goal reminders.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-secondary-container rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Dark Mode Toggle -->
+<div class="flex items-center justify-between p-lg hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-lg">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="dark_mode">dark_mode</span>
+<div>
+<p class="text-on-surface font-body-md font-semibold">Dark Mode</p>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Adjust the app's appearance to reduce eye strain.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-secondary-container rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Security -->
+<div class="flex items-center justify-between p-lg hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-lg">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="lock">lock</span>
+<div>
+<p class="text-on-surface font-body-md font-semibold">Password &amp; Security</p>
+<p class="text-on-surface-variant font-label-sm text-label-sm">Manage your password and two-factor authentication.</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:translate-x-1 transition-transform" data-icon="chevron_right">chevron_right</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-inverse-surface border-t border-outline-variant dark:border-outline mt-xl">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-xl gap-gutter max-w-7xl mx-auto">
+<div class="font-h3 text-h3 font-bold text-primary dark:text-primary-container">EXAM PREP AI</div>
+<div class="flex gap-lg flex-wrap justify-center">
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-sm text-label-sm hover:text-primary dark:hover:text-primary-container underline transition-all" href="#">About</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-sm text-label-sm hover:text-primary dark:hover:text-primary-container underline transition-all" href="#">Contact</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-sm text-label-sm hover:text-primary dark:hover:text-primary-container underline transition-all" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-sm text-label-sm hover:text-primary dark:hover:text-primary-container underline transition-all" href="#">Terms of Service</a>
+</div>
+<p class="text-on-surface-variant dark:text-on-surface-variant font-label-sm text-label-sm opacity-80">© 2024 Exam Prep AI. All rights reserved.</p>
+</div>
+</footer>
+</body></html>
