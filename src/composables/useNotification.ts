@@ -4,7 +4,7 @@ export function userNotification() {
     const ui = useUiStore()
 
     return {
-        success: (message: string) => ui.addNotification('succes', message),
+        success: (message: string) => ui.addNotification('success', message),
         error: (message: string) => ui.addNotification('error', message),
         warning: (message: string) => ui.addNotification('warning', message),
         info: (message: string) => ui.addNotification('info', message),

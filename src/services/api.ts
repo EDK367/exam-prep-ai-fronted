@@ -1,37 +1,37 @@
 import axios from 'axios'
-import type { AxiosInstance, AxiosError } from 'axios'
+import { supabase } from './supabase'
+import type { AxiosError, AxiosInstance } from 'axios'
 
-// uso de api
 const api: AxiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
-    timeout: 10_000,
-    headers: {
-        'Content-Type': 'application/json',
-    },
+  baseURL: import.meta.env.VITE_API_URL,
+  timeout: 30_000,
 })
 
-// adjuntar el token
-api.interceptors.request.use((config) => {
-    const token = localStorage.getItem('token')
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`
-    }
+// Request interceptor: always inject the current Supabase token
+api.interceptors.request.use(async (config) => {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession()
 
-    return config
+  const token = session?.access_token
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+
+  return config
 })
 
-// manejo de error centralizado
-api.interceptors.response.use((response) => response,
-    (error: AxiosError) => {
-
-        // si el token expira limpiar y redirigir
-        if (error.response?.status === 401) {
-            localStorage.removeItem('token')
-            window.location.href = '/login'
-
-        }
-        return Promise.reject(error)
+// Response interceptor: handle 401 globally
+api.interceptors.response.use(
+  (response) => response,
+  async (error: AxiosError) => {
+    if (error.response?.status === 401) {
+      // Session expired — sign out from Supabase and let the auth listener handle it
+      await supabase.auth.signOut()
     }
+    return Promise.reject(error)
+  },
 )
 
 export default api

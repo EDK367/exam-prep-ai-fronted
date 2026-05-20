@@ -1,28 +1,17 @@
-import type { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
 import { useAuthStore } from "@/store/authStore";
 
-export function requiresAuth(
-    _to: RouteLocationNormalized,
-    _from: RouteLocationNormalized,
-    next: NavigationGuardNext,
-) {
+export function requiresAuth() {
     const auth = useAuthStore();
-    if (auth.isAuthenticated) {
-        next();
-    } else {
-        next("/home");
+    if (!auth.isAuthenticated) {
+        return "/login";
     }
+    return true;
 }
 
-export function redirectIfAuthenticated(
-    _to: RouteLocationNormalized,
-    _from: RouteLocationNormalized,
-    next: NavigationGuardNext,
-) {
+export function redirectIfAuthenticated() {
     const auth = useAuthStore();
     if (auth.isAuthenticated) {
-        next("/dashboard");
-    } else {
-        next();
+        return "/dashboard";
     }
+    return true;
 }

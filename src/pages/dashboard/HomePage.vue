@@ -1,4 +1,4 @@
-<template>
+  <template>
   <v-app>
     <v-app-bar flat class="border-b app-bar" border-color="outline-variant">
       <v-container class="d-flex align-center justify-space-between px-4 px-md-8" fluid>
@@ -122,66 +122,35 @@
           </div>
 
           <v-row>
-            <v-col cols="12" md="4">
-              <v-card class="pa-6 text-center pricing-card hover-scale" border flat>
-                <h3 class="text-h3 mb-2">Free</h3>
+            <v-col cols="12" md="4" v-for="plan in dbPlans" :key="plan.id">
+              <v-card class="pa-6 text-center pricing-card hover-scale" border flat :class="{'popular-card': plan.name === 'Plus' || plan.name === 'Pro'}">
+                <h3 class="text-h3 mb-2">{{ plan.name }}</h3>
                 <div class="d-flex align-baseline justify-center ga-1 mb-4">
-                  <span class="text-h2 font-weight-bold">$0</span>
-                  <span class="text-label-sm">/ forever</span>
+                  <span class="text-h2 font-weight-bold">{{ plan.name === 'Free' ? '$0' : (plan.name === 'Plus' ? '$7.99' : '$14.99') }}</span>
+                  <span class="text-label-sm">/ {{ plan.name === 'Free' ? 'forever' : 'month' }}</span>
                 </div>
                 <v-divider class="mb-4"></v-divider>
                 <div class="d-flex flex-column ga-3 mb-6 text-left">
                   <div class="d-flex align-center ga-2 check-item">
                     <v-icon icon="mdi-check" color="primary" size="20"></v-icon>
-                    <span class="text-body-md">5 AI-generated sessions</span>
+                    <span class="text-body-md">{{ plan.max_tokens.toLocaleString() }} Tokens</span>
                   </div>
                   <div class="d-flex align-center ga-2 check-item">
                     <v-icon icon="mdi-check" color="primary" size="20"></v-icon>
-                    <span class="text-body-md">Basic progress tracking</span>
+                    <span class="text-body-md">{{ plan.max_test }} Exams Generated</span>
                   </div>
                   <div class="d-flex align-center ga-2 check-item">
                     <v-icon icon="mdi-check" color="primary" size="20"></v-icon>
-                    <span class="text-body-md">Community forum access</span>
+                    <span class="text-body-md">{{ plan.max_uploads }} Document Uploads</span>
                   </div>
-                </div>
-                <v-btn variant="outlined" color="primary" block class="pricing-btn">Get Started</v-btn>
-              </v-card>
-            </v-col>
-
-            <v-col cols="12" md="4">
-              <v-card class="pa-6 text-center pricing-card popular-card hover-scale" flat>
-                <h3 class="text-h3 mb-2">Plus</h3>
-                <div class="d-flex align-baseline justify-center ga-1 mb-4">
-                  <span class="text-h2 font-weight-bold">$7.99</span>
-                  <span class="text-label-sm">/ month</span>
-                </div>
-                <v-divider class="mb-4"></v-divider>
-                <div class="d-flex flex-column ga-3 mb-6 text-left">
-                  <div class="d-flex align-center ga-2 check-item" v-for="item in plusFeatures" :key="item">
+                  <div class="d-flex align-center ga-2 check-item">
                     <v-icon icon="mdi-check" color="primary" size="20"></v-icon>
-                    <span class="text-body-md">{{ item }}</span>
+                    <span class="text-body-md text-truncate" style="max-width: 100%;">Model: {{ plan.model }}</span>
                   </div>
                 </div>
-                <v-btn color="primary-container" class="text-on-primary-container pricing-btn pulse-btn" block>Go
-                  Plus</v-btn>
-              </v-card>
-            </v-col>
-
-            <v-col cols="12" md="4">
-              <v-card class="pa-6 text-center pricing-card hover-scale" border flat>
-                <h3 class="text-h3 mb-2">Pro</h3>
-                <div class="d-flex align-baseline justify-center ga-1 mb-4">
-                  <span class="text-h2 font-weight-bold">$14.99</span>
-                  <span class="text-label-sm">/ month</span>
-                </div>
-                <v-divider class="mb-4"></v-divider>
-                <div class="d-flex flex-column ga-3 mb-6 text-left">
-                  <div class="d-flex align-center ga-2 check-item" v-for="item in proFeatures" :key="item">
-                    <v-icon icon="mdi-check" color="primary" size="20"></v-icon>
-                    <span class="text-body-md">{{ item }}</span>
-                  </div>
-                </div>
-                <v-btn color="primary" class="pricing-btn glow-btn" block>Get Pro</v-btn>
+                <v-btn :variant="plan.name === 'Free' ? 'outlined' : 'flat'" :color="plan.name === 'Free' ? 'primary' : 'primary-container'" :class="plan.name !== 'Free' ? 'text-on-primary-container pulse-btn' : 'pricing-btn'" block @click="login">
+                  {{ plan.name === 'Free' ? 'Get Started' : `Get ${plan.name}` }}
+                </v-btn>
               </v-card>
             </v-col>
           </v-row>
@@ -232,32 +201,36 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useTheme } from 'vuetify'
 import { useRouter } from 'vue-router'
+import api from '@/services/api'
 
 const theme = useTheme()
 const isDark = computed(() => theme.global.name.value === 'dark')
 const nameApp = import.meta.env.VITE_APP_NAME;
 const router = useRouter();
 
+const dbPlans = ref<any[]>([])
+
+onMounted(async () => {
+  try {
+    const { data } = await api.get('/billing/plans')
+    dbPlans.value = data.data
+  } catch (e) {
+    console.error('Failed to load plans:', e)
+    // Fallback if API fails
+    dbPlans.value = [
+      { id: '1', name: 'Free', max_tokens: 50000, max_test: 10, max_uploads: 5, model: 'deepseek-free' },
+      { id: '2', name: 'Plus', max_tokens: 250000, max_test: 50, max_uploads: 50, model: 'gpt-4o' },
+      { id: '3', name: 'Pro', max_tokens: 500000, max_test: 100, max_uploads: 100, model: 'gpt-4o' }
+    ]
+  }
+})
+
 const login = () => {
   router.push('/login')
 }
-
-const plusFeatures = [
-  'Unlimited study sessions',
-  'Advanced Smart Analytics',
-  '2 Mock Exams per month',
-  'PDF Study Summaries'
-]
-
-const proFeatures = [
-  'Full AI power & reasoning',
-  'Unlimited Mock Exams',
-  'Priority tutoring support',
-  'Custom training datasets'
-]
 
 function toggleTheme() {
   theme.global.name.value = isDark.value ? 'light' : 'dark'
@@ -407,7 +380,7 @@ function particleStyle(i: number) {
   background: linear-gradient(135deg, var(--v-primary-base), var(--v-primary-container-base));
   -webkit-background-clip: text;
   background-clip: text;
-  color: var(on-background);
+  color: rgb(var(--v-theme-on-background));
   transition: all 0.3s ease;
 }
 

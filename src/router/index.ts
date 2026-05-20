@@ -4,25 +4,18 @@ import { redirectIfAuthenticated, requiresAuth } from "./guards";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // raiz de la app
     {
       path: "/",
       redirect: "/home",
     },
-
-    // pagina publica
     {
       path: "/home",
-      name: "Home",
       component: () => import("@/pages/dashboard/HomePage.vue"),
     },
-
-    // login
     {
       path: "/login",
       component: () => import("@/layouts/AuthLayout.vue"),
       beforeEnter: redirectIfAuthenticated,
-
       children: [
         {
           path: "",
@@ -31,8 +24,6 @@ const router = createRouter({
         },
       ],
     },
-
-    // register
     {
       path: "/register",
       component: () => import("@/layouts/AuthLayout.vue"),
@@ -45,18 +36,22 @@ const router = createRouter({
         },
       ],
     },
-
-    // authenticated required
     {
-      path: "/",
+      path: "/dashboard",
       component: () => import("@/layouts/DefaultLayout.vue"),
       beforeEnter: requiresAuth,
       children: [
         {
-          path: "dashboard",
+          path: "",
           name: "Dashboard",
           component: () => import("@/pages/dashboard/DashboardPage.vue"),
           meta: { title: "Dashboard" },
+        },
+        {
+          path: "files",
+          name: "FileList",
+          component: () => import("@/pages/files/FileListPage.vue"),
+          meta: { title: "Archivos" },
         },
         {
           path: "exams",
@@ -65,22 +60,28 @@ const router = createRouter({
           meta: { title: "Exámenes" },
         },
         {
+          path: "exams/create/:documentId",
+          name: "CreateExamConfig",
+          component: () => import("@/pages/exams/CreateExamConfigPage.vue"),
+          meta: { title: "Configurar Examen" },
+        },
+        {
           path: "exams/:id",
           name: "ExamDetail",
           component: () => import("@/pages/exams/ExamDetailPage.vue"),
-          meta: { title: "Detalle del Examen" },
+          meta: { title: "Detalle de Examen" },
         },
         {
-          path: "results",
+          path: "exams/:id/session",
+          name: "ExamSession",
+          component: () => import("@/pages/exams/ExamSessionPage.vue"),
+          meta: { title: "Resolviendo Examen" },
+        },
+        {
+          path: "results/:id",
           name: "Results",
           component: () => import("@/pages/results/ResultsPage.vue"),
           meta: { title: "Resultados" },
-        },
-        {
-          path: "settings",
-          name: "Settings",
-          component: () => import("@/pages/settings/SettingsPage.vue"),
-          meta: { title: "Configuración" },
         },
       ],
     },
@@ -90,13 +91,6 @@ const router = createRouter({
       component: () => import("@/pages/NotFoundPage.vue"),
     },
   ],
-});
-
-router.afterEach((to) => {
-  const title = to.meta.title as string;
-  document.title = title
-    ? `${title} | ${import.meta.env.VITE_APP_NAME}`
-    : import.meta.env.VITE_APP_NAME;
 });
 
 export default router;
