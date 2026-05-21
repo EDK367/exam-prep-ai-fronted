@@ -3,9 +3,7 @@
     <v-app-bar flat class="border-b app-bar" border-color="outline-variant">
       <v-container class="d-flex align-center justify-space-between px-4 px-md-8" fluid>
         <div class="d-flex align-center ga-8">
-          <v-app-bar-title class="text-h8 font-weight-bold text-primary logo">
-            {{ nameApp }}
-          </v-app-bar-title>
+          <AppLogo to="/home" :size="52" :max-width="200" text-class="text-h6" link-class="logo" />
 
           <div class="d-none d-md-flex ga-4">
             <v-btn variant="text" class="text-body-1 text-on-surface-variant text-primary nav-item" rounded="0">
@@ -30,7 +28,7 @@
 
           <div class="d-none d-sm-flex ga-3">
             <v-btn variant="text" class="text-button" @click="login">Login</v-btn>
-            <v-btn variant="flat" color="primary-container" class="text-on-primary-container">Plans</v-btn>
+            <v-btn variant="flat" color="primary-container" class="text-on-primary-container" @click="register">Registrarse</v-btn>
           </div>
         </div>
       </v-container>
@@ -178,9 +176,9 @@
 
     <v-footer class="bg-surface-container-low border-t footer" border-color="outline-variant">
       <v-container class="d-flex flex-column flex-md-row justify-space-between align-center ga-4">
-        <div class="text-center text-md-start">
-          <span class="text-h3 font-weight-bold text-primary footer-logo">EXAM PREP AI</span>
-          <p class="text-label-sm text-on-surface-variant opacity-80 mt-1 mb-0">© 2024 Exam Prep AI. All rights
+        <div class="text-center text-md-start d-flex flex-column align-center align-md-start ga-2">
+          <AppLogo to="/home" :size="44" :max-width="180" text-class="text-h6" />
+          <p class="text-label-sm text-on-surface-variant opacity-80 mb-0">© {{ new Date().getFullYear() }} Exam Prep AI. All rights
             reserved.</p>
         </div>
 
@@ -205,10 +203,10 @@ import { ref, computed, onMounted } from 'vue'
 import { useTheme } from 'vuetify'
 import { useRouter } from 'vue-router'
 import api from '@/services/api'
+import AppLogo from '@/components/common/AppLogo.vue'
 
 const theme = useTheme()
 const isDark = computed(() => theme.global.name.value === 'dark')
-const nameApp = import.meta.env.VITE_APP_NAME;
 const router = useRouter();
 
 const dbPlans = ref<any[]>([])
@@ -230,6 +228,10 @@ onMounted(async () => {
 
 const login = () => {
   router.push('/login')
+}
+
+const register = () => {
+  router.push('/register')
 }
 
 function toggleTheme() {

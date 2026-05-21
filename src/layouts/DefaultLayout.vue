@@ -7,6 +7,7 @@
     </v-main>
 
     <AppFooter />
+    <ConfirmDialog />
   </v-app>
 </template>
 
@@ -15,6 +16,7 @@ import { computed } from 'vue'
 import { useTheme } from 'vuetify'
 import AppNavbar from '@/components/layout/AppNavbar.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
+import ConfirmDialog from '@/components/common/ConfirmDialog.vue'
 
 const theme = useTheme()
 const isDark = computed(() => theme.global.name.value === 'dark')

@@ -16,7 +16,7 @@ export const examService = {
   // ── Test CRUD ────────────────────────────────────────────────────────
 
   create(payload: CreateTestPayload) {
-    return api.post<Test>('/tests/', payload, { timeout: 120_000 })
+    return api.post<Test>('/tests/', payload, { timeout: 300_000 })
   },
 
   list(params?: { status?: string; page?: number; page_size?: number }) {
@@ -58,7 +58,7 @@ export const examService = {
       text,
       question_count: questionCount,
       difficulty,
-    }, { timeout: 120_000 })
+    }, { timeout: 300_000 })
   },
 
   generateExamFromDocument(
@@ -70,14 +70,14 @@ export const examService = {
       document_id: documentId,
       question_count: questionCount,
       difficulty,
-    }, { timeout: 120_000 })
+    }, { timeout: 300_000 })
   },
 
   generateFlashcards(documentId: string, count: number = 15) {
     return api.post<{ success: boolean; data: FlashcardSet }>(
       '/ai/generate-flashcards',
       { document_id: documentId, count },
-      { timeout: 120_000 }
+      { timeout: 300_000 }
     )
   },
 
@@ -85,12 +85,12 @@ export const examService = {
     return api.post<{ success: boolean; data: Summary }>(
       '/ai/generate-summary',
       { document_id: documentId },
-      { timeout: 120_000 }
+      { timeout: 300_000 }
     )
   },
 
   getExplanation(question: string, context: string) {
-    return api.post('/ai/explain', { question, context }, { timeout: 60_000 })
+    return api.post('/ai/explain', { question, context }, { timeout: 120_000 })
   },
 
   // ── Usage & Billing ──────────────────────────────────────────────────

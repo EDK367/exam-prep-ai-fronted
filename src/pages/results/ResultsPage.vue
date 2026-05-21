@@ -136,10 +136,12 @@
 import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useExamStore } from '@/store/examStore'
+import { useUiStore } from '@/store/uiStore'
 
 const route = useRoute()
 const router = useRouter()
 const examStore = useExamStore()
+const uiStore = useUiStore()
 
 const examId = route.params.id as string
 const retaking = ref(false)
@@ -153,7 +155,14 @@ onMounted(async () => {
 })
 
 async function handleRetake() {
-  if (confirm("Are you sure you want to retake this exam? This will clear your current score and answers.")) {
+  const confirmed = await uiStore.showConfirm({
+    title: '¿Rehacer examen?',
+    message: '¿Estás seguro de que quieres volver a realizar este examen? Esto borrará tus respuestas y puntaje actuales.',
+    confirmText: 'Volver a realizar',
+    cancelText: 'Cancelar',
+    color: 'warning'
+  })
+  if (confirmed) {
     retaking.value = true
     try {
       await examStore.retakeTest(examId)

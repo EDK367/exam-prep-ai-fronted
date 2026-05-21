@@ -3,11 +3,9 @@
     class="bg-surface-container-lowest rounded-xl pa-4 hover-shadow transition-all duration-300 position-relative overflow-hidden group border d-flex flex-column justify-between h-100"
     elevation="0"
   >
-    <!-- Visual status preview container -->
     <div 
       class="bg-surface-container-low rounded-lg mb-4 d-flex flex-column align-center justify-center border border-outline-variant-30 overflow-hidden position-relative aspect-ratio-4-3"
     >
-      <!-- Completed status layout -->
       <template v-if="file.status === 'completed'">
         <v-icon icon="mdi-file-pdf-box" color="error" size="64" class="mb-2"></v-icon>
         <span class="text-caption font-weight-bold text-success bg-success-container px-3 py-1 rounded-pill">
@@ -15,7 +13,6 @@
         </span>
       </template>
 
-      <!-- Processing state -->
       <template v-else-if="['processing', 'uploaded', 'chunked', 'ai_processing'].includes(file.status)">
         <v-progress-circular 
           indeterminate 
@@ -29,7 +26,6 @@
         </span>
       </template>
 
-      <!-- Failed state -->
       <template v-else-if="file.status === 'failed'">
         <v-icon icon="mdi-alert-circle" color="error" size="64" class="mb-2"></v-icon>
         <span class="text-caption font-weight-bold text-error bg-error-container px-3 py-1 rounded-pill">
@@ -37,7 +33,6 @@
         </span>
       </template>
 
-      <!-- Canceled state -->
       <template v-else>
         <v-icon icon="mdi-file-cancel" color="on-surface-variant" size="64" class="mb-2"></v-icon>
         <span class="text-caption font-weight-bold text-on-surface-variant bg-surface-container-high px-3 py-1 rounded-pill">
@@ -45,22 +40,26 @@
         </span>
       </template>
 
-      <!-- Overlay for interactions -->
       <div 
         v-if="file.status === 'completed'"
-        class="overlay position-absolute d-flex align-center justify-center w-100 h-100 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
-        @click="goToDetail"
+        class="overlay position-absolute d-flex align-center justify-center w-100 h-100 opacity-0 group-hover:opacity-100 transition-opacity"
       >
-        <v-btn color="primary" icon="mdi-eye" size="large" elevation="2"></v-btn>
+        <v-btn
+          color="primary"
+          icon="mdi-eye"
+          size="large"
+          elevation="2"
+          title="Ver PDF"
+          @click.stop="openPdfPreview"
+        ></v-btn>
       </div>
     </div>
     
-    <!-- Info Section -->
     <div class="d-flex align-start justify-space-between flex-grow-1">
       <div class="flex-grow-1 min-w-0 pr-2">
         <h4 
           class="text-body-2 font-weight-bold text-on-surface text-truncate mb-1 cursor-pointer hover-text-primary"
-          @click="goToDetail"
+          @click="openPdfPreview"
           :title="file.filename"
         >
           {{ file.filename }}
@@ -71,7 +70,6 @@
       </div>
       
       <div class="d-flex align-center">
-        <!-- Retry button if failed -->
         <v-btn 
           v-if="file.status === 'failed'"
           icon="mdi-refresh" 
@@ -83,7 +81,6 @@
           @click="reprocessFile"
         ></v-btn>
         
-        <!-- Delete button -->
         <v-btn 
           icon="mdi-delete" 
           variant="text" 
@@ -96,22 +93,30 @@
         ></v-btn>
       </div>
     </div>
+
+    <PdfPreviewDialog
+      v-model="showPdfPreview"
+      :document-id="file.id"
+      :filename="file.filename"
+    />
   </v-card>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useRouter } from 'vue-router'
 import type { Document } from '@/types/document.types'
 import { useDocumentStore } from '@/store/documentStore'
+import { useUiStore } from '@/store/uiStore'
+import PdfPreviewDialog from '@/components/files/PdfPreviewDialog.vue'
 
 const props = defineProps<{
   file: Document
 }>()
 
-const router = useRouter()
 const documentStore = useDocumentStore()
+const uiStore = useUiStore()
 const deleting = ref(false)
+const showPdfPreview = ref(false)
 
 const formattedDate = computed(() => {
   if (!props.file.created_at) return ''
@@ -130,11 +135,9 @@ const formattedSize = computed(() => {
   return `${mb.toFixed(1)} MB`
 })
 
-function goToDetail() {
-  if (props.file.status === 'completed') {
-    // Navigate to document detail or start a test
-    router.push({ name: 'FileList' }) // Or customized view if detail exists
-  }
+function openPdfPreview() {
+  if (props.file.status !== 'completed') return
+  showPdfPreview.value = true
 }
 
 async function reprocessFile() {
@@ -146,7 +149,14 @@ async function reprocessFile() {
 }
 
 async function deleteFile() {
-  if (!confirm(`¿Estás seguro de eliminar el archivo "${props.file.filename}"?`)) return
+  const confirmed = await uiStore.showConfirm({
+    title: '¿Eliminar archivo?',
+    message: `¿Estás seguro de que deseas eliminar el archivo "${props.file.filename}"? Esta acción no se puede deshacer.`,
+    confirmText: 'Eliminar',
+    cancelText: 'Cancelar',
+    color: 'error'
+  })
+  if (!confirmed) return
   deleting.value = true
   try {
     await documentStore.deleteDocument(props.file.id)

@@ -51,4 +51,11 @@ export const documentService = {
   delete(documentId: string) {
     return api.delete(`/documents/${documentId}`)
   },
+
+  getFile(documentId: string) {
+    return api.get<Blob>(`/documents/${documentId}/file`, {
+      responseType: 'blob',
+      timeout: 120_000,
+    })
+  },
 }

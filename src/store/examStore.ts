@@ -155,6 +155,12 @@ export const useExamStore = defineStore('exams', () => {
         test.status = 'ready'
         test.score = undefined
       }
+      if (currentTest.value && currentTest.value.id === testId) {
+        currentTest.value.status = 'ready'
+      }
+      if (currentResult.value && currentResult.value.test_id === testId) {
+        currentResult.value = null
+      }
       return data
     } catch (error) {
       uiStore.addNotification('error', 'Error al reiniciar el examen')

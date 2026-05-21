@@ -58,6 +58,7 @@
                   v-model="config.time_limit"
                   :items="[
                     { title: 'No Limit', value: 0 },
+                    { title: '5 mins', value: 5 },
                     { title: '15 mins', value: 15 },
                     { title: '30 mins', value: 30 },
                     { title: '60 mins', value: 60 },

@@ -13,6 +13,24 @@ export const useUiStore = defineStore('ui', () => {
     const globalLoading = ref(false)
     const notifications = ref<Notification[]>([])
 
+    const confirmState = ref<{
+        show: boolean
+        title: string
+        message: string
+        confirmText: string
+        cancelText: string
+        color: string
+        resolve: ((value: boolean) => void) | null
+    }>({
+        show: false,
+        title: '',
+        message: '',
+        confirmText: 'Confirm',
+        cancelText: 'Cancel',
+        color: 'primary',
+        resolve: null
+    })
+
     function toggleDarkMode() {
         isDarkMode.value = !isDarkMode.value
     }
@@ -33,14 +51,44 @@ export const useUiStore = defineStore('ui', () => {
         notifications.value = notifications.value.filter((n) => n.id !== id)
     }
 
+    function showConfirm(options: {
+        title: string
+        message: string
+        confirmText?: string
+        cancelText?: string
+        color?: string
+    }): Promise<boolean> {
+        return new Promise<boolean>((resolve) => {
+            confirmState.value = {
+                show: true,
+                title: options.title,
+                message: options.message,
+                confirmText: options.confirmText || 'Confirmar',
+                cancelText: options.cancelText !== undefined ? options.cancelText : 'Cancelar',
+                color: options.color || 'primary',
+                resolve
+            }
+        })
+    }
+
+    function handleConfirm(value: boolean) {
+        if (confirmState.value.resolve) {
+            confirmState.value.resolve(value)
+        }
+        confirmState.value.show = false
+    }
+
     return {
         isDarkMode,
         sidebarOpen,
         globalLoading,
         notifications,
+        confirmState,
         toggleDarkMode,
         toggleSideBar,
         addNotification,
-        removeNotification
+        removeNotification,
+        showConfirm,
+        handleConfirm
     }
 })

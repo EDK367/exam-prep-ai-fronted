@@ -1,12 +1,17 @@
 <template>
   <v-app-bar flat class="border-b" border-color="outline-variant" :color="isDark ? 'surface-container-high' : 'surface'">
     <v-container class="d-flex align-center justify-space-between px-4 px-md-8" fluid>
-      <div class="d-flex align-center ga-8">
-        <router-link to="/dashboard" class="text-decoration-none">
-          <v-app-bar-title class="text-h5 font-weight-bold" :class="isDark ? 'text-primary-container' : 'text-primary'">
-            EXAM PREP AI
-          </v-app-bar-title>
-        </router-link>
+      <div class="d-flex align-center ga-4 ga-md-8">
+        <div class="d-flex align-center ga-4">
+          <AppLogo to="/dashboard" :size="56" :max-width="220" text-class="text-h5" />
+          <router-link
+            :to="ROUTES.PROFILE"
+            class="text-body-1 font-weight-bold text-decoration-none transition-colors duration-200"
+            :class="isActive(ROUTES.PROFILE) ? (isDark ? 'text-primary-container border-b-2' : 'text-primary border-b-2 border-primary') : (isDark ? 'text-on-surface-variant hover:text-primary-container' : 'text-on-surface-variant hover:text-primary')"
+          >
+            Profile
+          </router-link>
+        </div>
 
         <div class="d-none d-md-flex align-center ga-6">
           <router-link 
@@ -27,9 +32,6 @@
       </div>
 
       <div class="d-flex align-center ga-4">
-        <v-btn variant="text" class="d-none d-sm-flex text-button text-on-surface-variant">
-          Plans
-        </v-btn>
         <v-btn color="primary-container" class="text-on-primary-container rounded-lg px-4 d-none d-sm-flex" elevation="0" to="/dashboard/exams">
           <v-icon icon="mdi-plus" class="mr-1"></v-icon>
           Create Exam
@@ -50,11 +52,11 @@
               <v-list-item-subtitle class="text-caption">{{ authStore.user?.email }}</v-list-item-subtitle>
             </v-list-item>
             <v-divider class="my-1"></v-divider>
-            <v-list-item link class="hover:bg-surface-container transition-colors">
+            <v-list-item link :to="ROUTES.PROFILE" class="hover:bg-surface-container transition-colors">
               <template v-slot:prepend>
                 <v-icon icon="mdi-account-circle" class="mr-2"></v-icon>
               </template>
-              <v-list-item-title class="text-label-sm font-weight-medium">View plan</v-list-item-title>
+              <v-list-item-title class="text-label-sm font-weight-medium">Mi perfil</v-list-item-title>
             </v-list-item>
             <v-divider class="my-1"></v-divider>
             <v-list-item link @click="handleLogout" class="hover:bg-error-container text-error transition-colors">
@@ -72,7 +74,6 @@
       </div>
     </v-container>
 
-    <!-- Global Notifications Snackbar -->
     <v-snackbar
       v-for="(notification, index) in uiStore.notifications"
       :key="notification.id"
@@ -96,6 +97,8 @@ import { useTheme } from 'vuetify'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/authStore'
 import { useUiStore } from '@/store/uiStore'
+import { ROUTES } from '@/utils/constants'
+import AppLogo from '@/components/common/AppLogo.vue'
 
 const theme = useTheme()
 const route = useRoute()

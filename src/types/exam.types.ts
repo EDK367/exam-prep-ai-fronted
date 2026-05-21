@@ -108,8 +108,17 @@ export interface UsageStats {
 
 export interface PlanUsage {
   plan: string
-  tokens: { used: number; max: number; remaining: number }
+  tokens: { used: number; max: number; remaining: number; today: number }
   uploads: { used: number; max: number; remaining: number }
   tests: { used: number; max: number; remaining: number }
   cost: { total: number; request_count: number }
+}
+
+export interface BillingPlan {
+  id: string
+  name: string
+  max_tokens: number
+  max_uploads: number
+  max_test: number
+  model: string
 }

@@ -83,6 +83,12 @@ const router = createRouter({
           component: () => import("@/pages/results/ResultsPage.vue"),
           meta: { title: "Resultados" },
         },
+        {
+          path: "profile",
+          name: "Profile",
+          component: () => import("@/pages/profile/ProfilePage.vue"),
+          meta: { title: "Perfil" },
+        },
       ],
     },
     {

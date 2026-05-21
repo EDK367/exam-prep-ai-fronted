@@ -7,6 +7,9 @@
       elevation="0"
     >
       <div class="text-center mb-8">
+        <div class="d-flex justify-center mb-4">
+          <AppLogo :size="80" :max-width="280" :show-text="false" />
+        </div>
         <h1 class="text-h4 font-weight-bold text-on-surface mb-2">Create Account</h1>
         <p class="text-body-1 text-on-surface-variant mb-0">Join Exam Prep AI to boost your learning.</p>
       </div>
@@ -129,6 +132,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/store/authStore'
+import AppLogo from '@/components/common/AppLogo.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()

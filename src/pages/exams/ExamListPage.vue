@@ -53,9 +53,11 @@ import { useRouter } from 'vue-router'
 import ExamCard from '@/components/exams/ExamCard.vue'
 import CreateExamDialog from '@/components/exams/CreateExamDialog.vue'
 import { useExamStore } from '@/store/examStore'
+import { useUiStore } from '@/store/uiStore'
 
 const router = useRouter()
 const examStore = useExamStore()
+const uiStore = useUiStore()
 
 const createExamDialog = ref(false)
 
@@ -77,7 +79,14 @@ onMounted(() => {
 })
 
 async function handleDeleteExam(id: string) {
-  if (confirm("Are you sure you want to delete this exam?")) {
+  const confirmed = await uiStore.showConfirm({
+    title: '¿Eliminar examen?',
+    message: '¿Estás seguro de que quieres eliminar este examen? Esta acción no se puede deshacer.',
+    confirmText: 'Eliminar',
+    cancelText: 'Cancelar',
+    color: 'error'
+  })
+  if (confirmed) {
     await examStore.deleteTest(id)
   }
 }

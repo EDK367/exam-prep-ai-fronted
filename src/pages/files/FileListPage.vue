@@ -22,12 +22,14 @@
             Storage
           </h3>
           <div class="d-flex flex-column ga-2">
-            <div class="d-flex justify-space-between text-caption font-weight-medium">
-              <span class="text-on-surface-variant">72% Used</span>
-              <span class="text-primary font-weight-bold">144 MB / 200 MB</span>
+            <div class="d-flex justify-space-between text-caption font-weight-medium align-center">
+              <span class="text-on-surface-variant">{{ uploadPercentage }}% Usado</span>
+              <span class="text-primary font-weight-bold text-right" style="font-size: 0.75rem;">
+                {{ usedUploads }} / {{ maxUploads }} PDFs ({{ totalSizeFormatted }})
+              </span>
             </div>
             <v-progress-linear
-              model-value="72"
+              :model-value="uploadPercentage"
               color="primary-container"
               bg-color="surface-container-highest"
               height="8"
@@ -105,20 +107,53 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import FileCard from '@/components/files/FileCard.vue'
 import { useDocumentStore } from '@/store/documentStore'
 import { useUiStore } from '@/store/uiStore'
+import { examService } from '@/services/examService'
+import type { PlanUsage } from '@/types/exam.types'
 
 const documentStore = useDocumentStore()
 const uiStore = useUiStore()
 
 const { documents, loading, uploading } = storeToRefs(documentStore)
 const fileInput = ref<HTMLInputElement | null>(null)
+const planUsage = ref<PlanUsage | null>(null)
+
+async function fetchUsage() {
+  try {
+    const { data } = await examService.getFullUsage()
+    planUsage.value = data.data
+  } catch (error) {
+    console.error('Failed to fetch plan usage:', error)
+  }
+}
+
+const totalSizeFormatted = computed(() => {
+  const bytes = documents.value.reduce((acc, doc) => acc + (doc.size_types || 0), 0)
+  const kb = bytes / 1024
+  if (kb < 1024) return `${kb.toFixed(1)} KB`
+  const mb = kb / 1024
+  return `${mb.toFixed(1)} MB`
+})
+
+const usedUploads = computed(() => planUsage.value?.uploads.used ?? documents.value.length)
+const maxUploads = computed(() => planUsage.value?.uploads.max ?? 5)
+const uploadPercentage = computed(() => {
+  if (maxUploads.value === 0) return 0
+  return Math.min(100, Math.round((usedUploads.value / maxUploads.value) * 100))
+})
 
 onMounted(() => {
   documentStore.fetchDocuments()
+  fetchUsage()
+})
+
+// Update usage when files are added or deleted
+watch(() => documents.value.length, () => {
+  fetchUsage()
 })
 
 const triggerUpload = () => {
@@ -139,10 +174,8 @@ const handleFileUpload = async (event: Event) => {
     await documentStore.uploadDocument(file)
     uiStore.addNotification('success', 'Document uploaded successfully. Processing started.')
   } catch (error) {
-    // Error is handled in store and displayed via UI store, but we can catch it
     console.error('Upload failed', error)
   } finally {
-    // Reset file input
     if (fileInput.value) fileInput.value.value = ''
   }
 }

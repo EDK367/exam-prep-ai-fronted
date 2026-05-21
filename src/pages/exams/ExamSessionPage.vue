@@ -215,8 +215,14 @@ const progressPercent = computed(() => {
 
 onMounted(async () => {
   if (examId) {
-    if (!test.value || test.value.id !== examId) {
-      await examStore.fetchTestDetail(examId)
+    await examStore.fetchTestDetail(examId)
+    
+    if (test.value && test.value.status === 'ready') {
+      try {
+        await examStore.startTest(examId)
+      } catch (error) {
+        console.error('Error starting test', error)
+      }
     }
     
     const savedTimer = localStorage.getItem(`exam_timer_${examId}`)
