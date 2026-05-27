@@ -121,11 +121,11 @@
 
           <v-row>
             <v-col cols="12" md="4" v-for="plan in dbPlans" :key="plan.id">
-              <v-card class="pa-6 text-center pricing-card hover-scale" border flat :class="{'popular-card': plan.name === 'Plus' || plan.name === 'Pro'}">
+              <v-card class="pa-6 text-center pricing-card hover-scale" border flat :class="{'popular-card': plan.name.toLowerCase() === 'plus' || plan.name.toLowerCase() === 'pro'}">
                 <h3 class="text-h3 mb-2">{{ plan.name }}</h3>
                 <div class="d-flex align-baseline justify-center ga-1 mb-4">
-                  <span class="text-h2 font-weight-bold">{{ plan.name === 'Free' ? '$0' : (plan.name === 'Plus' ? '$7.99' : '$14.99') }}</span>
-                  <span class="text-label-sm">/ {{ plan.name === 'Free' ? 'forever' : 'month' }}</span>
+                  <span class="text-h2 font-weight-bold">{{ plan.name.toLowerCase() === 'free' || plan.name.toLowerCase() === 'gratuito' ? '$0' : (plan.name.toLowerCase() === 'plus' ? '$9.99' : '$4.99') }}</span>
+                  <span class="text-label-sm">/ {{ plan.name.toLowerCase() === 'free' || plan.name.toLowerCase() === 'gratuito' ? 'forever' : 'month' }}</span>
                 </div>
                 <v-divider class="mb-4"></v-divider>
                 <div class="d-flex flex-column ga-3 mb-6 text-left">
@@ -146,8 +146,8 @@
                     <span class="text-body-md text-truncate" style="max-width: 100%;">Model: {{ plan.model }}</span>
                   </div>
                 </div>
-                <v-btn :variant="plan.name === 'Free' ? 'outlined' : 'flat'" :color="plan.name === 'Free' ? 'primary' : 'primary-container'" :class="plan.name !== 'Free' ? 'text-on-primary-container pulse-btn' : 'pricing-btn'" block @click="login">
-                  {{ plan.name === 'Free' ? 'Get Started' : `Get ${plan.name}` }}
+                <v-btn :variant="plan.name.toLowerCase() === 'free' ? 'outlined' : 'flat'" :color="plan.name.toLowerCase() === 'free' ? 'primary' : 'primary-container'" :class="plan.name.toLowerCase() !== 'free' ? 'text-on-primary-container pulse-btn' : 'pricing-btn'" block @click="login">
+                  {{ plan.name.toLowerCase() === 'free' ? 'Get Started' : `Get ${plan.name}` }}
                 </v-btn>
               </v-card>
             </v-col>
@@ -219,9 +219,9 @@ onMounted(async () => {
     console.error('Failed to load plans:', e)
     // Fallback if API fails
     dbPlans.value = [
-      { id: '1', name: 'Free', max_tokens: 50000, max_test: 10, max_uploads: 5, model: 'deepseek-free' },
-      { id: '2', name: 'Plus', max_tokens: 250000, max_test: 50, max_uploads: 50, model: 'gpt-4o' },
-      { id: '3', name: 'Pro', max_tokens: 500000, max_test: 100, max_uploads: 100, model: 'gpt-4o' }
+      { id: '1', name: 'FREE', max_tokens: 50000, max_test: 10, max_uploads: 5, model: 'deepseek-free' },
+      { id: '2', name: 'PLUS', max_tokens: 250000, max_test: 50, max_uploads: 50, model: 'gpt-4o' },
+      { id: '3', name: 'PRO', max_tokens: 500000, max_test: 100, max_uploads: 100, model: 'gpt-4o' }
     ]
   }
 })

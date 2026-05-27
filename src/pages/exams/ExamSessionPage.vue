@@ -55,16 +55,16 @@
             v-for="(option, idx) in currentQuestion.content.options"
             :key="idx"
             class="pa-4 border cursor-pointer rounded-lg transition-colors d-flex align-center"
-            :class="answers[currentQuestion?.id] === option ? 'bg-primary-container border-primary text-primary-container-on' : 'bg-surface hover-bg-low'"
+            :class="isOptionSelected(option) ? 'bg-primary-container border-primary text-primary-container-on' : 'bg-surface hover-bg-low'"
             elevation="0"
             @click="selectAnswer(option)"
           >
             <div 
               class="rounded-circle border d-flex align-center justify-center mr-4 transition-colors"
               style="width: 24px; height: 24px;"
-              :class="answers[currentQuestion?.id] === option ? 'bg-primary border-primary' : 'bg-transparent border-outline'"
+              :class="isOptionSelected(option) ? 'bg-primary border-primary' : 'bg-transparent border-outline'"
             >
-              <div v-if="answers[currentQuestion?.id] === option" class="bg-on-primary rounded-circle" style="width: 10px; height: 10px;"></div>
+              <div v-if="isOptionSelected(option)" class="bg-on-primary" :class="allowsMultipleSelections ? 'rounded-sm' : 'rounded-circle'" style="width: 10px; height: 10px;"></div>
             </div>
             <span class="text-body-1">{{ option }}</span>
           </v-card>
@@ -107,6 +107,7 @@
       <!-- Navigation -->
       <div class="d-flex justify-space-between align-center mt-8">
         <v-btn 
+          v-if="!isNoGoBack"
           variant="outlined" 
           color="on-surface-variant" 
           size="large" 
@@ -116,6 +117,7 @@
         >
           Previous
         </v-btn>
+        <div v-else></div> <!-- Spacer to keep Next button on the right -->
         
         <v-btn 
           v-if="currentQuestionIndex < totalQuestions - 1"
@@ -213,6 +215,18 @@ const progressPercent = computed(() => {
   return ((currentQuestionIndex.value + 1) / totalQuestions.value) * 100
 })
 
+const isMultipleAnswers = computed(() => test.value?.config?.multiple_answers === true)
+const isNoGoBack = computed(() => test.value?.config?.no_go_back === true)
+
+const allowsMultipleSelections = computed(() => {
+  if (!currentQuestion.value) return false
+  if (currentQuestion.value.questions_type !== 'multiple_choice') return false
+  if (!test.value?.config?.multiple_answers) return false
+  
+  const correctAnswer = currentQuestion.value.content?.correct_answer
+  return Array.isArray(correctAnswer)
+})
+
 onMounted(async () => {
   if (examId) {
     await examStore.fetchTestDetail(examId)
@@ -252,12 +266,51 @@ function formatTime(seconds: number) {
   return `${m}:${s.toString().padStart(2, '0')}`
 }
 
+function isOptionSelected(val: any) {
+  if (!currentQuestion.value) return false
+  const ans = answers.value[currentQuestion.value.id]
+  const options = currentQuestion.value.content?.options || []
+  const valIndex = options.indexOf(val)
+  
+  if (allowsMultipleSelections.value) {
+    return Array.isArray(ans) && ans.includes(valIndex)
+  }
+  return ans === valIndex
+}
+
 function selectAnswer(val: any) {
   if (!currentQuestion.value) return
-  answers.value[currentQuestion.value.id] = val
+  const qId = currentQuestion.value.id
+  
+  if (allowsMultipleSelections.value) {
+    if (!Array.isArray(answers.value[qId])) {
+      answers.value[qId] = []
+    }
+    
+    // Find index of option in the options array to store indices instead of values
+    const options = currentQuestion.value.content?.options || []
+    const valIndex = options.indexOf(val)
+    
+    if (valIndex !== -1) {
+      const idx = answers.value[qId].indexOf(valIndex)
+      if (idx === -1) {
+        answers.value[qId].push(valIndex)
+      } else {
+        answers.value[qId].splice(idx, 1)
+      }
+    }
+  } else {
+    if (currentQuestion.value.questions_type === 'multiple_choice') {
+      const options = currentQuestion.value.content?.options || []
+      answers.value[qId] = options.indexOf(val)
+    } else {
+      answers.value[qId] = val
+    }
+  }
 }
 
 function prevQuestion() {
+  if (isNoGoBack.value) return
   if (currentQuestionIndex.value > 0) {
     currentQuestionIndex.value--
   }

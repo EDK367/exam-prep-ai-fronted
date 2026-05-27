@@ -98,14 +98,14 @@
               <div class="mb-4">
                 <span class="text-caption text-on-surface-variant d-block mb-1">Your Answer:</span>
                 <span class="text-body-2 font-weight-bold" :class="q.is_correct ? 'text-success' : 'text-error'">
-                  {{ q.user_answer || 'No answer provided' }}
+                  {{ formatAnswer(q.user_answer, q) || 'No answer provided' }}
                 </span>
               </div>
               
               <div v-if="!q.is_correct && q.content?.correct_answer" class="mb-4">
                 <span class="text-caption text-on-surface-variant d-block mb-1">Correct Answer:</span>
                 <span class="text-body-2 font-weight-bold text-success">
-                  {{ q.content.correct_answer }}
+                  {{ formatAnswer(q.content.correct_answer, q) }}
                 </span>
               </div>
 
@@ -172,6 +172,22 @@ async function handleRetake() {
       retaking.value = false
     }
   }
+}
+
+function formatAnswer(ans: any, q: any) {
+  if (ans == null) return ''
+  if (Array.isArray(ans)) {
+    // If array of indices, map to options
+    if (ans.length > 0 && typeof ans[0] === 'number' && q.content?.options) {
+      return ans.map(idx => q.content.options[idx]).join(', ')
+    }
+    return ans.join(', ')
+  }
+  // If single index
+  if (typeof ans === 'number' && q.content?.options) {
+    return q.content.options[ans]
+  }
+  return String(ans)
 }
 </script>
 

@@ -32,7 +32,7 @@
                 <label class="text-caption font-weight-medium text-on-surface-variant ml-1 mb-1 d-block">Number of Questions</label>
                 <v-select
                   v-model="config.question_count"
-                  :items="[5, 10, 15, 20, 25, 30]"
+                  :items="availableQuestionCounts"
                   variant="outlined"
                   bg-color="surface-bright"
                   hide-details
@@ -86,6 +86,51 @@
                 hide-details
                 density="compact"
               ></v-checkbox>
+            </div>
+            
+            <v-divider class="my-2"></v-divider>
+            
+            <div class="d-flex flex-column ga-2">
+              <div class="d-flex align-center justify-space-between">
+                <h3 class="text-subtitle-1 font-weight-bold text-on-surface">PLUS MODE <v-icon v-if="!canUseHardMode" icon="mdi-lock" size="small" color="error"></v-icon></h3>
+                <v-switch 
+                  v-model="config.hard_mode" 
+                  color="error" 
+                  hide-details
+                  :disabled="!canUseHardMode"
+                  @change="handleHardModeChange"
+                ></v-switch>
+              </div>
+              <p v-if="!canUseHardMode" class="text-caption text-error mb-2">PLUS MODE requires Plus plan.</p>
+              
+              <v-expand-transition>
+                <div v-if="config.hard_mode" class="bg-surface-container-low pa-4 rounded-lg border">
+                  <p class="text-caption text-on-surface-variant mb-3">
+                    Enabling PLUS MODE requires a minimum of 10 questions.
+                  </p>
+                  <v-checkbox
+                    v-model="config.concept_mode"
+                    label="Concept Mode (Open Questions with AI Grading)"
+                    color="error"
+                    hide-details
+                    density="compact"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="config.multiple_answers"
+                    label="Multiple Answers (Select all correct options)"
+                    color="error"
+                    hide-details
+                    density="compact"
+                  ></v-checkbox>
+                  <v-checkbox
+                    v-model="config.no_go_back"
+                    label="No Go Back (Cannot return to previous questions)"
+                    color="error"
+                    hide-details
+                    density="compact"
+                  ></v-checkbox>
+                </div>
+              </v-expand-transition>
             </div>
             
             <div class="mt-4">
@@ -163,11 +208,32 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useDocumentStore } from '@/store/documentStore'
 import { useExamStore } from '@/store/examStore'
+import api from '@/services/api'
 
 const route = useRoute()
 const router = useRouter()
 const documentStore = useDocumentStore()
 const examStore = useExamStore()
+
+const currentPlan = ref('free')
+const loadingPlan = ref(true)
+
+const canUseHardMode = computed(() => {
+  return currentPlan.value.toLowerCase() === 'plus'
+})
+
+const maxQuestions = computed(() => {
+  return currentPlan.value.toLowerCase() === 'free' ? 10 : 30
+})
+
+const availableQuestionCounts = computed(() => {
+  const counts = [5, 10, 15, 20, 25, 30]
+  let validCounts = counts.filter(c => c <= maxQuestions.value)
+  if (config.value.hard_mode) {
+    validCounts = validCounts.filter(c => c >= 10)
+  }
+  return validCounts
+})
 
 const documentId = route.params.documentId as string
 
@@ -177,12 +243,31 @@ const config = ref({
   difficulty: 'medium' as 'easy' | 'medium' | 'hard',
   time_limit: 0,
   include_flashcards: false,
-  include_summary: false
+  include_summary: false,
+  hard_mode: false,
+  concept_mode: false,
+  multiple_answers: false,
+  no_go_back: false
 })
+
+function handleHardModeChange() {
+  if (config.value.hard_mode && config.value.question_count < 10) {
+    config.value.question_count = 10
+  }
+}
 
 const selectedDocument = computed(() => documentStore.currentDocument)
 
 onMounted(async () => {
+  try {
+    const planRes = await api.get('/billing/plan')
+    currentPlan.value = planRes.data.data.plan_name || planRes.data.data.plan || 'free'
+  } catch (e) {
+    console.error('Failed to get plan', e)
+  } finally {
+    loadingPlan.value = false
+  }
+
   if (documentId) {
     await documentStore.fetchDocument(documentId)
     if (documentStore.currentDocument) {
@@ -201,7 +286,11 @@ async function handleCreateExam() {
       question_count: config.value.question_count,
       difficulty: config.value.difficulty,
       include_flashcards: config.value.include_flashcards,
-      include_summary: config.value.include_summary
+      include_summary: config.value.include_summary,
+      hard_mode: config.value.hard_mode,
+      concept_mode: config.value.concept_mode,
+      multiple_answers: config.value.multiple_answers,
+      no_go_back: config.value.no_go_back
     })
     
     if (config.value.time_limit > 0) {

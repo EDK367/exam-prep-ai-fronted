@@ -10,14 +10,14 @@ export interface Question {
     question: string
     type?: string
     options?: string[]
-    correct_answer?: string
+    correct_answer?: string | string[]
     explanation?: string
   }
   created_at: string
 }
 
 export interface QuestionWithAnswer extends Question {
-  user_answer?: string | number | boolean | null
+  user_answer?: string | number | number[] | boolean | null
   is_correct?: boolean | null
   explanation?: string
 }
@@ -32,6 +32,12 @@ export interface Test {
   test_template_id?: string
   score?: number
   question_count?: number
+  config?: {
+    hard_mode?: boolean
+    concept_mode?: boolean
+    multiple_answers?: boolean
+    no_go_back?: boolean
+  }
   created_at: string
   updated_at: string
 }
@@ -69,11 +75,15 @@ export interface CreateTestPayload {
   template_id?: string
   include_flashcards?: boolean
   include_summary?: boolean
+  hard_mode?: boolean
+  concept_mode?: boolean
+  multiple_answers?: boolean
+  no_go_back?: boolean
 }
 
 export interface SubmitAnswerPayload {
   question_id: string
-  response_text: string | number | boolean
+  response_text: string | number | number[] | boolean
 }
 
 export interface Flashcard {
