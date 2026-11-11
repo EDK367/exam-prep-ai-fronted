@@ -1,79 +1,110 @@
-# exam-prep-ai-fronted
+# Exam Prep AI - Frontend
 
-Scaffolded with Vuetify CLI.
+Cliente web de usuario para la plataforma Exam Prep AI, desarrollado con Vue 3, Vite, TypeScript y la biblioteca de componentes Vuetify.
 
-## ❗️ Documentation
+---
 
-- Primary docs: https://0.vuetifyjs.com/
-- Getting started guide: https://0.vuetifyjs.com/guide
-- Community support: https://community.vuetifyjs.com/
-- Issue tracker: https://issues.vuetifyjs.com/
+## Stack Tecnologico
 
-## 🧱 Stack
+- **Framework:** Vue 3 (Composition API, `<script setup>`)
+- **Herramienta de Compilacion:** Vite
+- **Lenguaje:** TypeScript
+- **Libreria de UI:** Vuetify 3
+- **Iconografia:** Material Design Icons (`@mdi/font`)
+- **Gestion de Estado:** Pinia
+- **Enrutamiento:** Vue Router 4
+- **Cliente HTTP:** Axios
+- **Servicio de Autenticacion:** Supabase JS SDK
+- **Gestor de Paquetes:** pnpm
 
-- Framework: Vue 3 + Vite
-- UI Library: Vuetify0
-- Language: TypeScript
-- Package manager: pnpm
+---
 
-## 🧭 Start Here
+## Estructura del Proyecto
 
-- Main entry: `src/main.ts`
-- Main app component: `src/App.vue`
-- Main styles: `src/styles/`
-- Plugin setup: `src/plugins/`
+```text
+exam-prep-ai-fronted/
+├── public/                     # Archivos estaticos publicos
+├── src/
+│   ├── assets/                 # Recursos visuales y fuentes
+│   ├── components/             # Componentes modulares y reutilizables
+│   ├── layouts/                # Plantillas principales de navegacion
+│   ├── pages/                  # Vistas de la aplicacion (Dashboard, Examenes, Archivos)
+│   ├── plugins/                # Configuracion de Vuetify, Pinia y Router
+│   ├── router/                 # Rutas y guardias de navegacion
+│   ├── services/               # Clientes API y comunicacion con Backend y Supabase
+│   ├── stores/                 # Estados globales con Pinia
+│   ├── styles/                 # Estilos globales y variables de diseño
+│   ├── App.vue                 # Componente raiz
+│   └── main.ts                 # Punto de entrada de la aplicacion
+├── index.html                  # Plantilla HTML base
+├── package.json                # Definicion de dependencias y scripts de ejecucion
+└── vite.config.mts             # Configuracion del empaquetador Vite
+```
 
-## 📁 Project Structure
+---
 
-- `src/main.ts` — application entry point
-- `src/App.vue` — root component
-- `src/components/` — reusable Vue components
-- `src/plugins/` — plugin registration and setup
-- `src/styles/` — global styles and theme settings
-- `public/` — static public files
+## Configuracion y Variables de Entorno
 
-## ✨ Enabled Features
+Copie la plantilla de variables de entorno y configure los parametros correspondientes:
 
-- ESLint
-- Vue Router
-- Default Vuetify Styles
+```bash
+cp .env.example .env
+```
 
-## 💿 Install
+Campos requeridos en `.env`:
+```env
+VITE_API_URL=http://localhost:8000/api/v1
+BASE_URL=http://localhost:5173
+VITE_APP_NAME=Exam Prep AI
+VITE_SUPABASE_URL=https://<tu-proyecto-supabase>.supabase.co
+VITE_SUPABASE_ANON_KEY=<tu-supabase-anon-key>
+```
 
-Use your selected package manager (pnpm) to install dependencies:
+---
 
+## Instalacion y Ejecucion
+
+### 1. Instalacion de dependencias
 ```bash
 pnpm install
 ```
 
-## 🚀 Quick Start
-
+### 2. Servidor de desarrollo
 ```bash
-pnpm install
 pnpm dev
 ```
+La aplicacion estara disponible en `http://localhost:5173`.
 
-## 🏗️ Build
-
+### 3. Comprobacion de tipos
 ```bash
-pnpm build
+pnpm run type-check
 ```
 
-## 🧪 Available Scripts
+### 4. Compilacion para produccion
+```bash
+pnpm run build
+```
+Los artefactos estaticos optimizados se generaran en el directorio `dist/`.
 
-- `pnpm dev`
-- `pnpm build`
-- `pnpm preview`
-- `pnpm build-only`
-- `pnpm type-check`
-- `pnpm lint`
-- `pnpm lint:fix`
+### 5. Previsualizacion local del build de produccion
+```bash
+pnpm run preview
+```
 
-## 💪 Support Vuetify Development
+### 6. Analisis estatico de codigo (Linter)
+```bash
+pnpm run lint
+pnpm run lint:fix
+```
 
-This project uses Vuetify0 - an MIT licensed Open Source project. We are glad to welcome contributors and any support for ongoing development:
+---
 
-- Contribute to Vuetify and ecosystem projects: https://github.com/vuetifyjs
-- Request enterprise support: https://support.vuetifyjs.com/
-- Sponsor on GitHub: https://github.com/sponsors/vuetifyjs
-- Support on Open Collective: https://opencollective.com/vuetify
+## Despliegue en Produccion
+
+El frontend puede desplegarse de forma gratuita en plataformas para sitios estaticos (SPA):
+
+- **Vercel:** Importe el repositorio seleccionando el preajuste `Vite`, comando de construccion `pnpm build`, y directorio de salida `dist`.
+- **Cloudflare Pages:** Conecte el repositorio, configure el directorio raiz y especifique `pnpm build` como comando de salida.
+- **Netlify:** Configure la publicacion de la carpeta `dist/` tras ejecutar `pnpm build`.
+
+Recuerde configurar las variables de entorno (`VITE_API_URL`, `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`) en el panel de control del proveedor de alojamiento elegido.
