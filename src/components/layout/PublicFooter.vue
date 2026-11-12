@@ -1,21 +1,23 @@
 <template>
-  <v-footer class="border-t footer" border-color="outline-variant" :class="isDark ? 'bg-inverse-surface' : 'bg-surface-container-low'">
-    <v-container class="d-flex flex-column flex-md-row justify-space-between align-center ga-4 max-w-7xl mx-auto px-4 px-md-8 py-6">
-      <div class="text-center text-md-start d-flex flex-column align-center align-md-start ga-2">
-        <AppLogo to="/home" :size="44" :max-width="180" text-class="text-h6" />
-        <p class="text-label-sm text-on-surface-variant opacity-80 mb-0">© {{ new Date().getFullYear() }} Exam Prep AI. All rights reserved.</p>
+  <v-footer class="border-t footer py-6" border-color="outline-variant" :class="isDark ? 'bg-surface-container-low' : 'bg-surface'">
+    <v-container class="d-flex flex-column flex-md-row justify-space-between align-center ga-4 max-w-7xl mx-auto px-4 px-md-8">
+      <div class="text-center text-md-start d-flex flex-column align-center align-md-start ga-1">
+        <AppLogo to="/home" :size="36" :max-width="150" text-class="text-subtitle-1" />
+        <p class="text-caption text-on-surface-variant opacity-80 mb-0">
+          © {{ new Date().getFullYear() }} Exam Prep AI. Preparación inteligente para certificaciones y exámenes.
+        </p>
       </div>
 
       <div class="d-flex flex-wrap justify-center ga-4">
-        <v-btn variant="text" class="text-label-sm text-on-surface-variant footer-link">About</v-btn>
-        <v-btn variant="text" class="text-label-sm text-on-surface-variant footer-link">Contact</v-btn>
-        <v-btn variant="text" class="text-label-sm text-on-surface-variant footer-link">Privacy Policy</v-btn>
-        <v-btn variant="text" class="text-label-sm text-on-surface-variant footer-link">Terms of Service</v-btn>
+        <v-btn variant="text" size="small" class="text-caption text-on-surface-variant footer-link" to="/home">Inicio</v-btn>
+        <v-btn variant="text" size="small" class="text-caption text-on-surface-variant footer-link" to="/login">Acceso</v-btn>
+        <v-btn variant="text" size="small" class="text-caption text-on-surface-variant footer-link" to="/register">Registro</v-btn>
       </div>
 
-      <div class="d-flex ga-3">
-        <v-btn icon variant="text" size="small" class="social-btn text-on-surface-variant"><v-icon icon="mdi-web"></v-icon></v-btn>
-        <v-btn icon variant="text" size="small" class="social-btn text-on-surface-variant"><v-icon icon="mdi-share-variant"></v-icon></v-btn>
+      <div class="d-flex align-center ga-2 text-caption text-on-surface-variant">
+        <v-chip size="small" variant="tonal" color="primary" class="font-weight-medium">
+          FastAPI + Supabase + RAG
+        </v-chip>
       </div>
     </v-container>
   </v-footer>
@@ -32,32 +34,15 @@ const isDark = computed(() => theme.global.name.value === 'dark')
 
 <style scoped>
 .footer {
-  transition: all 0.3s ease;
-}
-
-.footer-logo {
-  transition: all 0.3s ease;
-}
-
-.footer-logo:hover {
-  opacity: 0.8;
+  transition: all 0.2s ease;
 }
 
 .footer-link {
-  transition: all 0.3s ease;
-  position: relative;
+  transition: color 0.2s ease;
 }
 
 .footer-link:hover {
-  transform: translateY(-2px);
-}
-
-.social-btn {
-  transition: all 0.3s ease;
-}
-
-.social-btn:hover {
-  transform: rotate(360deg) scale(1.1);
+  color: var(--v-theme-primary);
 }
 
 .max-w-7xl {

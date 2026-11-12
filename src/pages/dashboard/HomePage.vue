@@ -174,27 +174,7 @@
       </section>
     </v-main>
 
-    <v-footer class="bg-surface-container-low border-t footer" border-color="outline-variant">
-      <v-container class="d-flex flex-column flex-md-row justify-space-between align-center ga-4">
-        <div class="text-center text-md-start d-flex flex-column align-center align-md-start ga-2">
-          <AppLogo to="/home" :size="44" :max-width="180" text-class="text-h6" />
-          <p class="text-label-sm text-on-surface-variant opacity-80 mb-0">© {{ new Date().getFullYear() }} Exam Prep AI. All rights
-            reserved.</p>
-        </div>
-
-        <div class="d-flex flex-wrap justify-center ga-4">
-          <v-btn variant="text" class="text-label-sm text-on-surface-variant footer-link">About</v-btn>
-          <v-btn variant="text" class="text-label-sm text-on-surface-variant footer-link">Contact</v-btn>
-          <v-btn variant="text" class="text-label-sm text-on-surface-variant footer-link">Privacy Policy</v-btn>
-          <v-btn variant="text" class="text-label-sm text-on-surface-variant footer-link">Terms of Service</v-btn>
-        </div>
-
-        <div class="d-flex ga-3">
-          <v-btn icon variant="text" size="small" class="social-btn"><v-icon icon="mdi-web"></v-icon></v-btn>
-          <v-btn icon variant="text" size="small" class="social-btn"><v-icon icon="mdi-share-variant"></v-icon></v-btn>
-        </div>
-      </v-container>
-    </v-footer>
+    <PublicFooter />
   </v-app>
 </template>
 
@@ -204,6 +184,7 @@ import { useTheme } from 'vuetify'
 import { useRouter } from 'vue-router'
 import api from '@/services/api'
 import AppLogo from '@/components/common/AppLogo.vue'
+import PublicFooter from '@/components/layout/PublicFooter.vue'
 
 const theme = useTheme()
 const isDark = computed(() => theme.global.name.value === 'dark')

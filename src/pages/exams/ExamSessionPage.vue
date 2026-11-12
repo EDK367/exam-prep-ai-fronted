@@ -60,11 +60,12 @@
             @click="selectAnswer(option)"
           >
             <div 
-              class="rounded-circle border d-flex align-center justify-center mr-4 transition-colors"
-              style="width: 24px; height: 24px;"
-              :class="isOptionSelected(option) ? 'bg-primary border-primary' : 'bg-transparent border-outline'"
+              class="rounded-circle border d-flex align-center justify-center mr-4 transition-colors font-weight-bold text-caption"
+              style="width: 26px; height: 26px;"
+              :class="isOptionSelected(option) ? 'bg-primary text-on-primary border-primary' : 'bg-transparent text-on-surface-variant border-outline'"
             >
-              <div v-if="isOptionSelected(option)" class="bg-on-primary" :class="allowsMultipleSelections ? 'rounded-sm' : 'rounded-circle'" style="width: 10px; height: 10px;"></div>
+              <span v-if="!isOptionSelected(option)">{{ idx + 1 }}</span>
+              <v-icon v-else icon="mdi-check" size="14"></v-icon>
             </div>
             <span class="text-body-1">{{ option }}</span>
           </v-card>
@@ -228,6 +229,7 @@ const allowsMultipleSelections = computed(() => {
 })
 
 onMounted(async () => {
+  window.addEventListener('keydown', handleKeydown)
   if (examId) {
     await examStore.fetchTestDetail(examId)
     
@@ -257,8 +259,33 @@ onMounted(async () => {
 })
 
 onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeydown)
   if (timerInterval) clearInterval(timerInterval)
 })
+
+function handleKeydown(e: KeyboardEvent) {
+  if (['TEXTAREA', 'INPUT'].includes((e.target as HTMLElement)?.tagName)) return
+  if (submitDialog.value || exitDialog.value) return
+
+  // Numbers 1-9 for Multiple Choice
+  if (currentQuestion.value?.questions_type === 'multiple_choice' && currentQuestion.value.content?.options) {
+    const num = parseInt(e.key, 10)
+    if (num >= 1 && num <= currentQuestion.value.content.options.length) {
+      selectAnswer(currentQuestion.value.content.options[num - 1])
+      return
+    }
+  }
+
+  // True / False (1 = True, 2 = False)
+  if (currentQuestion.value?.questions_type === 'true_false') {
+    if (e.key === '1' || e.key.toLowerCase() === 't') selectAnswer('True')
+    if (e.key === '2' || e.key.toLowerCase() === 'f') selectAnswer('False')
+  }
+
+  // Navigation
+  if (e.key === 'ArrowRight') nextQuestion()
+  if (e.key === 'ArrowLeft') prevQuestion()
+}
 
 function formatTime(seconds: number) {
   const m = Math.floor(seconds / 60)

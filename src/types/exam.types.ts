@@ -37,6 +37,7 @@ export interface Test {
     concept_mode?: boolean
     multiple_answers?: boolean
     no_go_back?: boolean
+    time_limit?: number
   }
   created_at: string
   updated_at: string

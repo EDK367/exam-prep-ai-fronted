@@ -47,6 +47,14 @@ export const useUiStore = defineStore('ui', () => {
         setTimeout(() => removeNotification(id), 4000)
     }
 
+    function showSuccess(message: string) {
+        addNotification('success', message)
+    }
+
+    function showError(message: string) {
+        addNotification('error', message)
+    }
+
     function removeNotification(id: string) {
         notifications.value = notifications.value.filter((n) => n.id !== id)
     }
@@ -87,6 +95,8 @@ export const useUiStore = defineStore('ui', () => {
         toggleDarkMode,
         toggleSideBar,
         addNotification,
+        showSuccess,
+        showError,
         removeNotification,
         showConfirm,
         handleConfirm
