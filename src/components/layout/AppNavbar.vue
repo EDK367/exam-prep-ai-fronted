@@ -73,7 +73,7 @@
                 v-bind="props" 
                 size="small" 
                 variant="tonal" 
-                color="primary" 
+                :color="planColor" 
                 class="font-weight-bold d-none d-sm-inline-flex cursor-pointer"
                 to="/dashboard/profile"
               >
@@ -187,7 +187,7 @@
           </v-avatar>
           <div class="min-w-0">
             <p class="text-caption font-weight-bold mb-0 text-truncate">{{ authStore.fullName || 'Usuario' }}</p>
-            <v-chip size="x-small" color="primary" variant="flat" class="font-weight-bold">
+            <v-chip size="x-small" :color="planColor" variant="flat" class="font-weight-bold">
               PLAN {{ userPlan }}
             </v-chip>
           </div>
@@ -242,6 +242,13 @@ const isDark = computed(() => theme.global.name.value === 'dark')
 
 const userPlan = computed(() => {
   return (authStore.user as any)?.subscription?.plan?.name || 'FREE'
+})
+
+const planColor = computed(() => {
+  const p = userPlan.value.toUpperCase()
+  if (p === 'PRO') return 'amber-darken-2'
+  if (p === 'PLUS') return 'purple'
+  return 'primary'
 })
 
 const userInitials = computed(() => {

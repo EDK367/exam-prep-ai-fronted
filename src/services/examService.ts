@@ -108,4 +108,10 @@ export const examService = {
   getFullUsage() {
     return api.get<{ success: boolean; data: PlanUsage }>('/billing/usage')
   },
+
+  changePlan(planName: string) {
+    return api.post<{ success: boolean; message: string; data?: any }>(
+      `/billing/plan/${planName}`,
+    )
+  },
 }
